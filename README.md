@@ -1,2 +1,2 @@
 # Trendify
-App to analyze trends on social networks
+Application to analyze trends on social networks
