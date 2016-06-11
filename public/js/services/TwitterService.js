@@ -13,8 +13,15 @@ app.factory('TwitterService', ['$http', function ($http) {
             });
     }
 
-    function postInfo(){
-        return $http.post('/api/twitter', data);
+    function postInfo(searchString){
+        return $http.post('/api/twitter', searchString)
+        .success(function () {
+           //handle success
+        })
+        .error(function () {
+           //handle error
+        })
+        
     }
 
 }]);
