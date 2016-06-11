@@ -8,7 +8,8 @@ app.controller('MainController', ['$scope', '$window', '$q','TwitterService', fu
 
     $scope.tweetSearch = function(){
         //$scope.fromServer = 'clicked';
-        TwitterService.postInfo($scope.twitterInputField);
+        var inputToJson = {'input':$scope.twitterInputField};
+        TwitterService.postInfo(inputToJson);
     };
 
 	window.twttr = (function(d, s, id) {

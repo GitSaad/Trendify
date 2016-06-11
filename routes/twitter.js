@@ -13,5 +13,7 @@ router.route('/api/twitter')
             return res.status(200).send(test);
     });
 
-//router.post()
+router.post('/api/twitter',function(req,res,next){
+    console.log(req.body.input);
+});
 module.exports = router;
