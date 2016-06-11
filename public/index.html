@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css"> <!-- custom styles -->
+    <link rel="stylesheet" href = "libs/font-awesome/css/font-awesome.min.css">
 
     <!-- JS -->
     <script src="libs/angular/angular.min.js"></script>
@@ -17,8 +18,13 @@
 </head>
 <body ng-app="trendifyApp">
 	<div ng-controller="MainController">
-        {{fromServer}}
-		<div ng-repeat="tweet in tweets" id="{{tweet.id}}"></div>
+        <div class="container">
+            <input type="text">
+            <button ng-click="tweetSearch()" class="btn btn-primary"><i class="fa fa-search"></i></button>
+            <br>
+            {{fromServer}}
+            <div ng-repeat="tweet in tweets" id="{{tweet.id}}"></div>
+        </div>
 	</div>
 
 </body>

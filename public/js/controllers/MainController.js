@@ -3,6 +3,10 @@ app.controller('MainController', ['$scope', '$window', '$q','TwitterService', fu
         $scope.fromServer = data.message;
     });
 
+    $scope.tweetSearch = function(){
+        $scope.fromServer = 'clicked';
+    };
+
 	window.twttr = (function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0],
 			t = window.twttr || {};
