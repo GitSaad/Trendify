@@ -1,15 +1,20 @@
-angular.module('TwitterService', []).factory('Twitter', ['$http', function ($http) {
+app.factory('TwitterService', ['$http', function ($http) {
 
-    return {
+    return{
+        getTweet:getTweet,
+        postInfo:postInfo
+    };
 
-        get : function () {
-            return $http.get('/api/twitter');
-        },
+    function  getTweet(){
+        return $http.get('/api/twitter')
+            .then(function(res)
+            {
+                return res.data
+            });
+    }
 
-        post : function(data) {
-            return $http.post('/api/twitter', data);
-        }
-
+    function postInfo(){
+        return $http.post('/api/twitter', data);
     }
 
 }]);
