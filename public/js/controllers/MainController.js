@@ -1,4 +1,12 @@
-app.controller('MainController', ['$scope', '$window', '$q', function($scope, $window, $q) {
+app.controller('MainController', ['$scope', '$window', '$q','TwitterService', function($scope, $window, $q, TwitterService) {
+    TwitterService.getTweet().then(function(data){
+        $scope.fromServer = data.message;
+    });
+
+    $scope.tweetSearch = function(){
+        $scope.fromServer = 'clicked';
+    };
+
 	window.twttr = (function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0],
 			t = window.twttr || {};
@@ -50,7 +58,7 @@ app.controller('MainController', ['$scope', '$window', '$q', function($scope, $w
             'positiveSentiment': false
         }
 	];
-
+    //$scope.getFromServer = Twitter.getTweet();
 	twttr.ready(function(twttr) {
 		$scope.tweets.forEach(function(i) {
 			twttr.widgets.createTweet(

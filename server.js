@@ -42,6 +42,11 @@ app.use(express.static(__dirname + '/public'));
 // startup our app at http://localhost:8080
 app.listen(port);
 
+var twitter = require('./routes/twitter');
+
+app.use('/',twitter);
+
+
 // shoutout to the user
 console.log('Magic happens on port ' + port);
 
