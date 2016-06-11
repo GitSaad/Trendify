@@ -1,10 +1,14 @@
 app.controller('MainController', ['$scope', '$window', '$q','TwitterService', function($scope, $window, $q, TwitterService) {
+    $scope.twitterInputField = '';
+
     TwitterService.getTweet().then(function(data){
         $scope.fromServer = data.message;
     });
 
+
     $scope.tweetSearch = function(){
-        $scope.fromServer = 'clicked';
+        //$scope.fromServer = 'clicked';
+        TwitterService.postInfo($scope.twitterInputField);
     };
 
 	window.twttr = (function(d, s, id) {

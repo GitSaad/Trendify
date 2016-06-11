@@ -8,7 +8,7 @@ var router = express.Router();
 router.route('/api/twitter')
     .get(function getTweets(req, res, next) {
             var test = {
-                "message":"hello"
+                "message":"From the server"
             };
             return res.status(200).send(test);
     });
