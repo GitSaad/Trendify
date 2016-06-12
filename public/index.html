@@ -36,7 +36,12 @@
 			    </div>
 			</nav>
             <div id="tweetContainer" class="col-xs-6 col-md-4">
-            	<div ng-repeat="tweet in tweets track by $index" id="{{tweet.id}}"></div>
+            	<div ng-repeat="tweet in tweets track by $index">
+            		<div style="color:{{sentimentColor(tweet.score)}}" class="col-xs-2 tweetSentiment">
+            			<b>{{tweet.score*100 | number:0}}%</b>
+            		</div>
+            		<div id="{{tweet.id}}" class="col-xs-10"></div>
+            	</div>
             </div>
             <div id="trendGraphContainer" class="col-xs-6 col-md-8">
             	<trend-graph id="trendGraph" val="tweets"></trend-graph>

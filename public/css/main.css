@@ -10,6 +10,12 @@ html, body, #controller, .container {
 #trendGraphContainer {
 	height: 80%;
 }
+.tweetSentiment {
+	font-size: 30px;
+	padding: 0px;
+	margin-top: 10px;
+	float: left;
+}
 .axis path,
 .axis line {
 	fill: none;

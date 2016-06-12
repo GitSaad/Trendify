@@ -62,4 +62,15 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
 		return t;
 	}(document, "script", "twitter-wjs"));
 
+	$scope.sentimentColor = function(score) {
+		if (score >= 0.3) {
+		    return '#00FF00';
+		} else if (score < 0.3 && score >= -0.3) {
+		    return '#AAAA00';
+		} else {
+		    return '#FF0000';
+		}
+
+	}
+
 }]);
