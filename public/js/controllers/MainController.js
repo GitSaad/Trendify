@@ -1,8 +1,9 @@
 app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$interval', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, $interval, TwitterService, NyTimesService) {
     //$scope.twitterInputField = '';
     //$scope.test  = [];
+	$scope.toggleJumbotron = true;
 
-    $('#tweetContainer').hide();
+    $('#contentContainer').hide();
     $('#trendGraphContainer').hide();
     $scope.progressBar = 0;
     $scope.test1  = 'nothing';
@@ -10,10 +11,12 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
     $scope.tweetSearch = function(){
         $scope.test  = [];
         $scope.tweets = [];
+		$scope.toggleJumbotron = false;
 
         var inputToJson = {'input':$scope.inputField};
         TwitterService.postInfo(inputToJson);
 
+    	$scope.progressBar = 0;
         $interval(function() {
         	$scope.progressBar += 1;
         }, 50, 100);
@@ -22,12 +25,18 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
             TwitterService.getTweet().then(function(data){
 
                 $scope.tweets = [];
+                var sum = 0;
+                var count = 0;
                 data.forEach(function(i) {
                     $scope.tweets.push({
 	                	id: i.tweet_id,
 	                	score: i.score
 	                });
+	                sum += i.score;
+	                count++;
                 });
+
+                $scope.avgTwitterScore = sum/count;
 
 	            twttr.ready(function(twttr) {
 	                $scope.tweets.forEach(function(i) {
@@ -39,7 +48,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 	                        }
 	                    ).then( function( el ) {
 	                    	$('.jumbotron').hide();
-	                    	$('#tweetContainer').show();
+	                    	$('#contentContainer').show();
 	                    	$('#trendGraphContainer').show();
 	                    });
 	                });

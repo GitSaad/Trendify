@@ -1,7 +1,7 @@
 html, body, #controller, .container {
 	height: 100%;
 }
-#tweetContainer {
+#contentContainer {
 	height: 80%;
 	overflow: scroll;
 	border: 1px solid lightgray;

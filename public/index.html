@@ -45,22 +45,21 @@
                 </div>
 	            <span>{{progressBar}}%</span>
             </div>
-            <div id="tweetContainer" class="col-xs-6 col-md-4">
-            	<div ng-repeat="tweet in tweets track by $index">
+            <div id="contentContainer" class="col-xs-6 col-md-4">
+            	<div class="btn-group" role="group" aria-label="...">
+					<button ng-click="twitterContent = true" type="button" class="btn btn-default">Twitter</button>
+					<button ng-click="twitterContent = false" type="button" class="btn btn-default">NY Times</button>
+            	</div>
+            	<div ng-if="twitterContent" ng-repeat="tweet in tweets track by $index">
             		<div style="color:{{sentimentColor(tweet.score)}}" class="col-xs-2 tweetSentiment">
             			<b>{{tweet.score*100 | number:0}}%</b>
             		</div>
             		<div id="{{tweet.id}}" class="col-xs-10"></div>
             	</div>
+            	<div ng-if="!twitterContent"></div>
             </div>
             <div id="trendGraphContainer" class="col-xs-6 col-md-8" ng-show = '!toggleJumbotron'>
             	<trend-graph id="trendGraph" val="tweets"></trend-graph>
-            </div>
-            <br>
-            <div class = 'container' ng-show = '!toggleJumbotron'>
-                <h4><strong>Sample Headline:</strong> {{headline}}</h4>
-                <h4><strong>Sample Sentiment:</strong> {{headlineSentiment}}</h4>
-                <h4><strong>Sample Sentiment Score:</strong> {{sentimentScore}}</h4>
             </div>
         </div>
 	</div>
