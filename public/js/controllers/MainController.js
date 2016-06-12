@@ -1,16 +1,46 @@
 app.controller('MainController', ['$scope', '$window', '$q','TwitterService', function($scope, $window, $q, TwitterService) {
     $scope.twitterInputField = '';
-
-    TwitterService.getTweet().then(function(data){
-        $scope.fromServer = data.message;
-    });
-
-
+    $scope.test  = [];
     $scope.tweetSearch = function(){
-        //$scope.fromServer = 'clicked';
-        var inputToJson = {'input':$scope.twitterInputField};
-        TwitterService.postInfo(inputToJson);
+
+        TwitterService.getTweet().then(function(data){
+
+            var inputToJson = {'input':$scope.twitterInputField};
+            TwitterService.postInfo(inputToJson);
+
+            $scope.tweets = [];
+            data.forEach(function(i) {
+                $scope.tweets.push({
+                	id: i.tweet_id,
+                	score: i.score
+                });
+            });
+
+            for(var i=0; i<data.length; i++)
+            {
+                $scope.test.push(JSON.stringify(data[i]));
+            }
+
+            console.log(data)
+            twttr.ready(function(twttr) {
+                $scope.tweets.forEach(function(i) {
+                    twttr.widgets.createTweet(
+                        i.id,
+                        document.getElementById(i.id),
+                        {
+                            conversation:'none'
+                        }
+                    ).then( function( el ) {
+
+                    });
+                });
+            });
+
+
+        });
     };
+
+
 
 	window.twttr = (function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0],
@@ -29,52 +59,4 @@ app.controller('MainController', ['$scope', '$window', '$q','TwitterService', fu
 		return t;
 	}(document, "script", "twitter-wjs"));
 
-	$scope.tweets = [
-        {
-            'id': '20',
-            'sentiment': 0.05
-        },
-        {
-            'id': '21',
-            'sentiment': -0.14
-        },
-        {
-            'id': '22',
-            'sentiment': -0.05
-        },
-        {
-            'id': '23',
-            'sentiment': -0.13
-        },
-        {
-            'id': '25',
-            'sentiment': 0.58
-        },
-        {
-            'id': '26',
-            'sentiment': 0.56
-        },
-        {
-            'id': '29',
-            'sentiment': 0.54
-        },
-        {
-            'id': '507185938620219395',
-            'sentiment': -0.99
-        }
-	];
-    //$scope.getFromServer = Twitter.getTweet();
-	twttr.ready(function(twttr) {
-		$scope.tweets.forEach(function(i) {
-			twttr.widgets.createTweet(
-				i.id,
-				document.getElementById(i.id),
-				{
-					conversation:'none'
-				}
-			).then( function( el ) {
-
-			});
-		});
-	});
 }]);
