@@ -24,16 +24,26 @@
 	<div ng-controller="MainController" id="controller">
         <div class="container">
             {{test1}}
-            <input ng-model="inputField" type="text">
-            <button ng-click="tweetSearch(); articleSearch()" class="btn btn-primary"><i class="fa fa-search"></i></button>
-            <br>
-            {{test}}
-            {{inputField}}
-            {{fromServer}}
-            <div id="tweetContainer" class="col-xs-6 col-md-4">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left" role="search" ng-submit="tweetSearch(); articleSearch()">
+                            <div class="form-group">
+                                <input ng-model="inputField" type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+            <div class = 'jumbotron text-center' ng-show="toggleJumbotron">
+                <h1>Trendify</h1>
+                <h4>Analyzing trend sentiments has never been easier!</h4>
+            </div>
+            <div id="tweetContainer" class="col-xs-6 col-md-4" ng-show = '!toggleJumbotron'>
             	<div ng-repeat="tweet in tweets track by $index" id="{{tweet.id}}"></div>
             </div>
-            <div id="trendGraphContainer" class="col-xs-6 col-md-8">
+            <div id="trendGraphContainer" class="col-xs-6 col-md-8" ng-show = '!toggleJumbotron'>
             	<trend-graph id="trendGraph" val="tweets"></trend-graph>
             </div>
         </div>
