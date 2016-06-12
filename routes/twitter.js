@@ -14,10 +14,15 @@ var twitter_client = new Twitter({
   access_token_key: '706909442055512064-fztu40SS89xiLTJtC8JqNROG2fBpiDK',
   access_token_secret: 'z6HA10kqM8Peqt5dK4Bu6QUiwMfnkop0LI41sYqI3Javj'
 });
+
  
 var results_array = { 
 	hpe_results : []
 };
+
+
+var tweetsID = {};
+
 
 
 function QueryHPE(searchString, tweet_id) {
@@ -67,24 +72,27 @@ function QueryNYT(searchString) {
 // Returns JSON of response 
 function QueryTwitter(searchString) {
 	queryParams = {
-		    'q': searchString,
-		    'lang':'en',
-		    'result_type':'popular',
-		  };
+		'q': searchString,
+		'lang': 'en',
+		'result_type': 'popular',
+	};
 
 
-	twitter_client.get('search/tweets', queryParams, function(error, response, body){
-	  if (!error) {
-	  	var tweets = response;
-	  
-	  	for (var i=0; i<tweets['statuses'].length; i++){
-			tweet_id = tweets['statuses'][i]['id'];
-			tweet_text = tweets['statuses'][i]['text'];
-			QueryHPE(tweet_text, tweet_id);
+	twitter_client.get('search/tweets', queryParams, function (error, response, body) {
+		if (!error) {
+			var tweets = {'tweet': response};
 
+			for (var i = 0; i < tweets.tweet['statuses'].length; i++) {
+				console.log(tweets.tweet['statuses'][i]['id_str']);
+		    	        tweet_id = tweets['statuses'][i]['id'];
+			        tweet_text = tweets['statuses'][i]['text'];
+			        QueryHPE(tweet_text, tweet_id);
+			}
 		}
-	  }
+		tweetsID = tweets;
+		console.log('from post'+ tweetsID.tweet['statuses'][0]['id_str']);
 	});
+
 }
 
 router.route('/api/twitter')
@@ -92,7 +100,7 @@ router.route('/api/twitter')
             var test = {
                 "message":"From the server"
             };
-            return res.status(200).send(test);
+            return res.status(200).send(tweetsID);
     });
 
 router.post('/api/twitter',function(req,res,next){
