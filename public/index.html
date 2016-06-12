@@ -6,25 +6,33 @@
 
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css"> <!-- custom styles -->
-    <link rel="stylesheet" href = "libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
 
     <!-- JS -->
     <script src="libs/angular/angular.min.js"></script>
     <script src="libs/angular-route/angular-route.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers/MainController.js"></script>
-    <script src = "js/services/TwitterService.js"></script>
+    <script src="js/directives/trendGraph.js"></script>
+    <script src="js/services/TwitterService.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
 
 </head>
 <body ng-app="trendifyApp">
-	<div ng-controller="MainController">
+	<div ng-controller="MainController" id="controller">
         <div class="container">
-            <input ng-model = "twitterInputField" type="text">
+            <input ng-model="twitterInputField" type="text">
             <button ng-click="tweetSearch()" class="btn btn-primary"><i class="fa fa-search"></i></button>
             <br>
             {{twitterInputField}}
             {{fromServer}}
-            <div ng-repeat="tweet in tweets" id="{{tweet.id}}"></div>
+            <div id="tweetContainer" class="col-xs-6 col-md-4">
+            	<div ng-repeat="tweet in tweets" id="{{tweet.id}}"></div>
+            </div>
+            <div id="trendGraphContainer" class="col-xs-6 col-md-8">
+            	<trend-graph id="trendGraph" val="tweets"></trend-graph>
+            </div>
         </div>
 	</div>
 

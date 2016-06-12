@@ -32,35 +32,35 @@ app.controller('MainController', ['$scope', '$window', '$q','TwitterService', fu
 	$scope.tweets = [
         {
             'id': '20',
-            'positiveSentiment': true
+            'sentiment': 0.05
         },
         {
             'id': '21',
-            'positiveSentiment': false
+            'sentiment': -0.14
         },
         {
             'id': '22',
-            'positiveSentiment': true
+            'sentiment': -0.05
         },
         {
             'id': '23',
-            'positiveSentiment': false
+            'sentiment': -0.13
         },
         {
             'id': '25',
-            'positiveSentiment': true
+            'sentiment': 0.58
         },
         {
             'id': '26',
-            'positiveSentiment': false
+            'sentiment': 0.56
         },
         {
             'id': '29',
-            'positiveSentiment': true
+            'sentiment': 0.54
         },
         {
             'id': '507185938620219395',
-            'positiveSentiment': false
+            'sentiment': -0.99
         }
 	];
     //$scope.getFromServer = Twitter.getTweet();
