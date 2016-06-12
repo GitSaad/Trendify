@@ -2,7 +2,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
     //$scope.twitterInputField = '';
     //$scope.test  = [];
 
-    $('#tweetContainer').hide();
+    $('#contentContainer').hide();
     $('#trendGraphContainer').hide();
     $scope.progressBar = 0;
     $scope.test1  = 'nothing';
@@ -22,12 +22,18 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
             TwitterService.getTweet().then(function(data){
 
                 $scope.tweets = [];
+                var sum = 0;
+                var count = 0;
                 data.forEach(function(i) {
                     $scope.tweets.push({
 	                	id: i.tweet_id,
 	                	score: i.score
 	                });
+	                sum += i.score;
+	                count++;
                 });
+
+                $scope.avgTwitterScore = sum/count;
 
 	            twttr.ready(function(twttr) {
 	                $scope.tweets.forEach(function(i) {
@@ -39,7 +45,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 	                        }
 	                    ).then( function( el ) {
 	                    	$('.jumbotron').hide();
-	                    	$('#tweetContainer').show();
+	                    	$('#contentContainer').show();
 	                    	$('#trendGraphContainer').show();
 	                    });
 	                });
