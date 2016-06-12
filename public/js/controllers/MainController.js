@@ -1,12 +1,13 @@
 app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, TwitterService, NyTimesService) {
     //$scope.twitterInputField = '';
     //$scope.test  = [];
-
+	$scope.toggleJumbotron = true;
 
 
     $scope.tweetSearch = function(){
         $scope.test  = [];
         $scope.tweets = [];
+		$scope.toggleJumbotron = false;
 
         var inputToJson = {'input':$scope.inputField};
         TwitterService.postInfo(inputToJson);
@@ -41,8 +42,6 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
     $scope.articleSearch = function () {
         var inputToJson = { 'input': $scope.inputField };
         NyTimesService.postInfo(inputToJson);
-
-
     };
 
 	window.twttr = (function(d, s, id) {
