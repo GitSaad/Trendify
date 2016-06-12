@@ -21,10 +21,10 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
                     $scope.tweets.push(i.tweet_id);
                 });
 
-                for(var i=0; i<data.length; i++)
-                {
-                    $scope.test.push(JSON.stringify(data[i]));
-                }
+               // for(var i=0; i<data.length; i++)
+               // {
+              //      $scope.test.push(JSON.stringify(data[i]));
+              //  }
 
 
                 twttr.ready(function(twttr) {
