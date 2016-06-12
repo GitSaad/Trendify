@@ -84,8 +84,8 @@ function QueryTwitter(searchString) {
 
 			for (var i = 0; i < tweets.tweet['statuses'].length; i++) {
 				console.log(tweets.tweet['statuses'][i]['id_str']);
-		    	        tweet_id = tweets['statuses'][i]['id'];
-			        tweet_text = tweets['statuses'][i]['text'];
+		    	        tweet_id = tweets.tweet['statuses'][i]['id_str'];
+			        tweet_text = tweets.tweet['statuses'][i]['text'];
 			        QueryHPE(tweet_text, tweet_id);
 			}
 		}
