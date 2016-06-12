@@ -14,6 +14,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
         var inputToJson = {'input':$scope.inputField};
         TwitterService.postInfo(inputToJson);
 
+    	$scope.progressBar = 0;
         $interval(function() {
         	$scope.progressBar += 1;
         }, 50, 100);
