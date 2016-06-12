@@ -22,9 +22,10 @@
             <input ng-model = "twitterInputField" type="text">
             <button ng-click="tweetSearch()" class="btn btn-primary"><i class="fa fa-search"></i></button>
             <br>
+            {{test}}
             {{twitterInputField}}
             {{fromServer}}
-            <div ng-repeat="tweet in tweets" id="{{tweet}}"></div>
+            <div ng-repeat="tweet in tweets track by $index" id="{{tweet}}"></div>
         </div>
 	</div>
 

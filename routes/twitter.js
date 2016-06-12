@@ -37,12 +37,14 @@ function QueryHPE(searchString, tweet_id) {
 	   
 	  },
 	}, function(err, response, body) {
+
 	  body = JSON.parse(body);
       results['tweet_id'] = tweet_id;
       results['sentiment'] = body['aggregate']['sentiment'];
       results['score'] = body['aggregate']['score'];
       results_array['hpe_results'].push(results);
-      console.log(results_array['hpe_results']);
+		//tweetsID = results_array['hpe_results'];
+     // console.log(results_array['hpe_results']);
 	})
 
 }
@@ -89,8 +91,8 @@ function QueryTwitter(searchString) {
 			        QueryHPE(tweet_text, tweet_id);
 			}
 		}
-		tweetsID = tweets;
-		console.log('From post'+ tweetsID.tweet['statuses'][0]['id_str']);
+		tweetsID = results_array['hpe_results'];
+		console.log('From post'+ JSON.stringify(tweetsID));
 	});
 
 }

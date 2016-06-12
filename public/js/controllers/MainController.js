@@ -1,10 +1,8 @@
 app.controller('MainController', ['$scope', '$window', '$q','TwitterService', function($scope, $window, $q, TwitterService) {
     $scope.twitterInputField = '';
-
-
+    $scope.test  = [];
     $scope.tweetSearch = function(){
         //$scope.fromServer = 'clicked';
-
 
         TwitterService.getTweet().then(function(data){
 
@@ -12,9 +10,15 @@ app.controller('MainController', ['$scope', '$window', '$q','TwitterService', fu
             TwitterService.postInfo(inputToJson);
 
             $scope.tweets = [];
-            data.tweet['statuses'].forEach(function(i) {
-                $scope.tweets.push(i.id_str);
+            data.forEach(function(i) {
+                $scope.tweets.push(i.tweet_id);
             });
+
+            for(var i=0; i<data.length; i++)
+            {
+                $scope.test.push(JSON.stringify(data[i]));
+            }
+
 
             twttr.ready(function(twttr) {
                 $scope.tweets.forEach(function(i) {
