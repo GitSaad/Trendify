@@ -6,11 +6,12 @@ app.directive('trendGraph', function () {
         },
         link: function (scope, element, attrs) {
             scope.$watch('val', function (newVal, oldVal) {
-                if (newVal) {
+                if (newVal && newVal.length) {
                     var width = parseInt($('#trendGraphContainer').css('width'));
                     var height = parseInt($('#trendGraphContainer').css('height'));
                     var padding = 60;
 
+                    $('#graphSvg').remove();
                     var svgContainer = d3.select('#trendGraph').append('svg')
                         .attr('id', 'graphSvg')
                         .attr('width', '100%')
@@ -78,7 +79,6 @@ app.directive('trendGraph', function () {
                             return xAxisScale(d.x) + 1;
                         })
                         .attr('y', function(d) {
-                            console.log(height - yAxisScale(d.y), height, yAxisScale(100*d.y/count), d.y);
                             return yAxisScale(100*d.y/count);
                         })
                         .attr('width', function() {
