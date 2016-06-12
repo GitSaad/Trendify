@@ -2,6 +2,7 @@ app.controller('MainController', ['$scope', '$window', '$q','TwitterService', fu
     $scope.twitterInputField = '';
 
 
+
     $scope.tweetSearch = function(){
         //$scope.fromServer = 'clicked';
 
