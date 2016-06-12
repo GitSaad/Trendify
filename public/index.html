@@ -22,11 +22,11 @@
 <body ng-app="trendifyApp">
 	<div ng-controller="MainController" id="controller">
         <div class="container">
-            <input ng-model="twitterInputField" type="text">
+            <input ng-model="inputField" type="text">
             <button ng-click="tweetSearch()" class="btn btn-primary"><i class="fa fa-search"></i></button>
             <br>
             {{test}}
-            {{twitterInputField}}
+            {{inputField}}
             {{fromServer}}
             <div id="tweetContainer" class="col-xs-6 col-md-4">
             	<div ng-repeat="tweet in tweets track by $index" id="{{tweet.id}}"></div>

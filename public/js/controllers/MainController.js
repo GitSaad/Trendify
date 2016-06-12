@@ -8,7 +8,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
         $scope.test  = [];
         $scope.tweets = [];
 
-        var inputToJson = {'input':$scope.twitterInputField};
+        var inputToJson = {'input':$scope.inputField};
         TwitterService.postInfo(inputToJson);
 
         $timeout(function(){
