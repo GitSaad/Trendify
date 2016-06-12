@@ -22,6 +22,7 @@ app.directive('trendGraph', function () {
                 });
             }
 
+            var count = 0;
             scope.val.forEach(function(i) {
                 var bucket = 0;
                 if (i.sentiment >= 0) {
@@ -32,6 +33,7 @@ app.directive('trendGraph', function () {
                 histogramArray.forEach(function(j) {
                     if (String(bucket) == j.x) {
                         j.y++;
+                        count++;
                     }
                 });
             });
@@ -41,15 +43,18 @@ app.directive('trendGraph', function () {
                 .rangePoints([padding, width - padding]);
 
             var yAxisScale = d3.scale.linear()
-                .domain([0, d3.max(histogramArray.map(function(i) { return i.y; }))])
+                .domain([0, 100*d3.max(histogramArray.map(function(i) { return i.y; }))/count])
                 .range([height - padding, padding]);
 
             var xAxis = d3.svg.axis()
-                .scale(xAxisScale);
+                .scale(xAxisScale)
 
             var yAxis = d3.svg.axis()
                 .scale(yAxisScale)
-                .orient('left');
+                .orient('left')
+                .tickFormat(function(d) {
+                    return d + '%';
+                });
 
             var xAxisGroup = svgContainer.append('g')
                 .attr('class', 'axis')
@@ -70,14 +75,14 @@ app.directive('trendGraph', function () {
                     return xAxisScale(d.x) + 1;
                 })
                 .attr('y', function(d) {
-                    console.log(height - yAxisScale(d.y), height, yAxisScale(d.y), d.y);
-                    return yAxisScale(d.y);
+                    console.log(height - yAxisScale(d.y), height, yAxisScale(100*d.y/count), d.y);
+                    return yAxisScale(100*d.y/count);
                 })
                 .attr('width', function() {
                     return (width - 2*padding)/20 - 2;
                 })
                 .attr('height', function(d) {
-                    return height - yAxisScale(d.y) - padding;
+                    return height - yAxisScale(100*d.y/count) - padding;
                 })
                 .attr('fill', function(d) {
                     if (d.x >= 0) {
