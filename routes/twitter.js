@@ -74,12 +74,12 @@ function QueryNYT(searchString) {
 // Returns JSON of response 
 function QueryTwitter(searchString) {
 	queryParams = {
-		'q': searchString,
+		'q': searchString + ' -filter:retweets',
 		'lang': 'en',
 		'result_type': 'popular',
 	};
-
-
+   
+    
 	twitter_client.get('search/tweets', queryParams, function (error, response, body) {
 		if (!error) {
 			var tweets = {'tweet': response};
@@ -92,6 +92,7 @@ function QueryTwitter(searchString) {
 			}
 		}
 		tweetsID = results_array['hpe_results'];
+
 		console.log('From post'+ JSON.stringify(tweetsID));
 	});
 
@@ -106,6 +107,13 @@ router.route('/api/twitter')
     });
 
 router.post('/api/twitter',function(req,res,next){
+	    //Reset array
+	results_array = { 
+		hpe_results : []
+	};
+	console.log('test string here');
+    console.log(results_array['hpe_results'].length);
+
     QueryTwitter(req.body.input);
 });
 module.exports = router;
