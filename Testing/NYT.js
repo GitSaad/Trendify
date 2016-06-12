@@ -2,8 +2,8 @@
 var request = require('request')
 
 searchString = "Trump";
-beginDate = "20150501";
-endDate = "20160505";
+beginDate = "20160603";
+endDate = "20160610";
 
 
 function QueryNYT(searchString, beginDate, endDate ) {
