@@ -45,14 +45,13 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 	                });
 	            });
 	        });
-        },5000);
+        },40000);
     };
 
     $scope.articleSearch = function () {
         var inputToJson = { 'input': $scope.inputField };
 
         NyTimesService.postInfo(inputToJson);
-
 
         $timeout(function () {
             NyTimesService.getInfo().then(function (data) {
@@ -64,7 +63,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 
                 //USE data HERE
             });
-        }, 10000)
+        }, 60000)
     };
 
 	window.twttr = (function(d, s, id) {
