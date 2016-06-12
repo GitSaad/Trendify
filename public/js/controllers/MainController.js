@@ -1,16 +1,22 @@
-app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, TwitterService, NyTimesService) {
+app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$interval', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, $interval, TwitterService, NyTimesService) {
     //$scope.twitterInputField = '';
     //$scope.test  = [];
-	$scope.toggleJumbotron = true;
+
+    $('#tweetContainer').hide();
+    $('#trendGraphContainer').hide();
+    $scope.progressBar = 0;
     $scope.test1  = 'nothing';
 
     $scope.tweetSearch = function(){
         $scope.test  = [];
         $scope.tweets = [];
-		$scope.toggleJumbotron = false;
 
         var inputToJson = {'input':$scope.inputField};
         TwitterService.postInfo(inputToJson);
+
+        $interval(function() {
+        	$scope.progressBar += 1;
+        }, 50, 100);
 
         $timeout(function(){
             TwitterService.getTweet().then(function(data){
@@ -32,6 +38,9 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
 	                            conversation:'none'
 	                        }
 	                    ).then( function( el ) {
+	                    	$('.jumbotron').hide();
+	                    	$('#tweetContainer').show();
+	                    	$('#trendGraphContainer').show();
 	                    });
 	                });
 	            });
@@ -41,14 +50,18 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
 
     $scope.articleSearch = function () {
         var inputToJson = { 'input': $scope.inputField };
-        NyTimesService.postInfo(inputToJson).then(function(){});
+
+        NyTimesService.postInfo(inputToJson);
+
 
         $timeout(function () {
             NyTimesService.getInfo().then(function (data) {
                 $scope.test1 = JSON.stringify(data);
+
 				$scope.headline = data[0].snippet;
 				$scope.headlineSentiment = data[0].sentiment;
 				$scope.sentimentScore = data[0].score;
+
                 //USE data HERE
             });
         }, 10000)
@@ -70,5 +83,16 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
 
 		return t;
 	}(document, "script", "twitter-wjs"));
+
+	$scope.sentimentColor = function(score) {
+		if (score >= 0.3) {
+		    return '#00FF00';
+		} else if (score < 0.3 && score >= -0.3) {
+		    return '#AAAA00';
+		} else {
+		    return '#FF0000';
+		}
+
+	}
 
 }]);
