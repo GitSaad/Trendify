@@ -1,6 +1,7 @@
 app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, TwitterService, NyTimesService) {
     //$scope.twitterInputField = '';
     //$scope.test  = [];
+    $scope.test1  = 'nothing';
 
 
 
@@ -42,7 +43,13 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
         var inputToJson = { 'input': $scope.inputField };
         NyTimesService.postInfo(inputToJson);
 
-
+        $timeout(function () {
+            NyTimesService.getInfo().then(function (data) {
+                $scope.test1 = JSON.stringify(data);
+                //USE data HERE
+            });
+        }, 10000)
+        
     };
 
 	window.twttr = (function(d, s, id) {
