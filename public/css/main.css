@@ -29,6 +29,6 @@ html, body, #controller, .container {
 .jumbotron{
 	background-color: #2aabd2;
 	color:white;
-	height: 100%;
+	height: 80%;
 	width: 100%;
 }

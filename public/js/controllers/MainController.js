@@ -1,4 +1,4 @@
-app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, TwitterService, NyTimesService) {
+app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$interval', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, $interval, TwitterService, NyTimesService) {
     //$scope.twitterInputField = '';
     //$scope.test  = [];
 	$scope.toggleJumbotron = true;
