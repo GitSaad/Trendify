@@ -1,6 +1,7 @@
-app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$interval', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, $interval, TwitterService, NyTimesService) {
+app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, TwitterService, NyTimesService) {
     //$scope.twitterInputField = '';
     //$scope.test  = [];
+	$scope.toggleJumbotron = true;
 
     $('#contentContainer').hide();
     $('#trendGraphContainer').hide();
@@ -10,6 +11,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
     $scope.tweetSearch = function(){
         $scope.test  = [];
         $scope.tweets = [];
+		$scope.toggleJumbotron = false;
 
         var inputToJson = {'input':$scope.inputField};
         TwitterService.postInfo(inputToJson);
