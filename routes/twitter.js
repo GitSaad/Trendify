@@ -51,28 +51,6 @@ function QueryHPE(searchString, tweet_id) {
 
 }
 
-function QueryNYT(searchString) {
-
-	request.get({
-	  url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
-	  qs: {
-	    'api-key': "24841a2e46f4425ea3ac87ea3e37e7c3",
-	    'q': searchString,
-	    'fq': "headline:"+searchString,
-	    'fl': "headline",
-	    'begin_date':beginDate,
-	    'end_date':endDate,
-	    'page': 5
-	  },
-	}, function(err, response, body) {
-	  body = JSON.parse(body);
-	  console.log(body);
-
-
-	})
-
-}
-
 // Returns JSON of response 
 function QueryTwitter(searchString) {
 	queryParams = {

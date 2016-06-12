@@ -5,6 +5,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
     $('#tweetContainer').hide();
     $('#trendGraphContainer').hide();
     $scope.progressBar = 0;
+    $scope.test1  = 'nothing';
 
     $scope.tweetSearch = function(){
         $scope.test  = [];
@@ -50,6 +51,13 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
     $scope.articleSearch = function () {
         var inputToJson = { 'input': $scope.inputField };
         NyTimesService.postInfo(inputToJson);
+
+        $timeout(function () {
+            NyTimesService.getInfo().then(function (data) {
+                $scope.test1 = JSON.stringify(data);
+                //USE data HERE
+            });
+        }, 10000)
     };
 
 	window.twttr = (function(d, s, id) {

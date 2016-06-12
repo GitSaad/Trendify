@@ -23,10 +23,11 @@
 <body ng-app="trendifyApp">
 	<div ng-controller="MainController" id="controller">
         <div class="container">
-            <nav class="navbar navbar-default">
+<!--             {{test1}}
+ -->            <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="collapse navbar-collapse">
-                        <form class="navbar-form navbar-left" role="search" ng-submit="tweetSearch()">
+                        <form class="navbar-form navbar-left" role="search" ng-submit="tweetSearch(); articleSearch()">
                             <div class="form-group">
                                 <input ng-model="inputField" type="text" class="form-control" placeholder="Search">
                             </div>
