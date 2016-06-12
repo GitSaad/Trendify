@@ -42,7 +42,9 @@ function QueryHPE(searchString, tweet_id) {
       results['tweet_id'] = tweet_id;
       results['sentiment'] = body['aggregate']['sentiment'];
       results['score'] = body['aggregate']['score'];
-      results_array['hpe_results'].push(results);
+      if(results['score'] != 0) {
+      	results_array['hpe_results'].push(results);
+      }
 		//tweetsID = results_array['hpe_results'];
      // console.log(results_array['hpe_results']);
 	})
@@ -75,7 +77,7 @@ function QueryNYT(searchString) {
 function QueryTwitter(searchString) {
 	queryParams = {
 		'q': searchString + ' -filter:retweets',
-		'lang': 'en',
+		'lang': 'en',	
 		'result_type': 'popular',
 	};
    
