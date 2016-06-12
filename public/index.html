@@ -61,6 +61,12 @@
             <div id="trendGraphContainer" class="col-xs-6 col-md-8" ng-show = '!toggleJumbotron'>
             	<trend-graph id="trendGraph" val="tweets"></trend-graph>
             </div>
+            <br>
+            <div class = 'container' ng-show = '!toggleJumbotron'>
+                <h4><strong>Sample Headline:</strong> {{headline}}</h4>
+                <h4><strong>Sample Sentiment:</strong> {{headlineSentiment}}</h4>
+                <h4><strong>Sample Sentiment Score:</strong> {{sentimentScore}}</h4>
+            </div>
         </div>
 	</div>
 
