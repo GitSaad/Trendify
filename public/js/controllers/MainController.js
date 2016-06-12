@@ -41,11 +41,14 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
 
     $scope.articleSearch = function () {
         var inputToJson = { 'input': $scope.inputField };
-        NyTimesService.postInfo(inputToJson);
+        NyTimesService.postInfo(inputToJson).then(function(){});
 
         $timeout(function () {
             NyTimesService.getInfo().then(function (data) {
                 $scope.test1 = JSON.stringify(data);
+				$scope.headline = data[0].snippet;
+				$scope.headlineSentiment = data[0].sentiment;
+				$scope.sentimentScore = data[0].score;
                 //USE data HERE
             });
         }, 10000)
