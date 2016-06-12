@@ -26,3 +26,9 @@ html, body, #controller, .container {
 	font-family: sans-serif;
 	font-size: 11px
 }
+.jumbotron{
+	background-color: #2aabd2;
+	color:white;
+	height: 100%;
+	width: 100%;
+}
