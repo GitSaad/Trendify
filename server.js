@@ -43,8 +43,10 @@ app.use(express.static(__dirname + '/public'));
 app.listen(port);
 
 var twitter = require('./routes/twitter');
+var nytimes = require('./routes/nytimes');
 
-app.use('/',twitter);
+app.use('/', twitter);
+app.use('/', nytimes);
 
 
 // shoutout to the user

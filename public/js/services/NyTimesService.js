@@ -13,7 +13,7 @@ app.factory('NyTimesService', ['$http', function ($http) {
             });
     }
 
-    function postInfo(searchString){
+    function postInfo(searchString) {
         return $http.post('/api/nytimes', searchString)
         .success(function () {
             //handle success

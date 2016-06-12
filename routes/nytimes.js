@@ -21,7 +21,7 @@ function QueryNyTimes(searchString) {
             'api-key': "24841a2e46f4425ea3ac87ea3e37e7c3",
             'q': searchString,
             'fq': "headline:" + searchString,
-            'fl': "web_url, headline",
+            'fl': "web_url,headline",
             'begin_date': beginDate,
             'end_date': endDate
         },
@@ -41,7 +41,7 @@ router.post('/api/nytimes', function (req, res, next) {
     results_array = {
         hpe_results: []
     };
-
+    console.log("hello");
     QueryNyTimes(req.body.input);
 });
 
