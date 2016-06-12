@@ -35,11 +35,16 @@
                     </div>
                 </div>
             </nav>
-            <div class = 'jumbotron text-center' ng-show="toggleJumbotron">
+            <div class = 'jumbotron text-center'>
                 <h1>Trendify</h1>
                 <h4>Analyzing trend sentiments has never been easier!</h4>
+                <div class="progress">
+                	<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" ng-style="{'width': (progressBar)+'%'}">
+                	</div>
+                </div>
+	            <span>{{progressBar}}%</span>
             </div>
-            <div id="tweetContainer" class="col-xs-6 col-md-4" ng-show = '!toggleJumbotron'>
+            <div id="tweetContainer" class="col-xs-6 col-md-4">
             	<div ng-repeat="tweet in tweets track by $index">
             		<div style="color:{{sentimentColor(tweet.score)}}" class="col-xs-2 tweetSentiment">
             			<b>{{tweet.score*100 | number:0}}%</b>

@@ -1,16 +1,21 @@
-app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, TwitterService, NyTimesService) {
+app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$interval', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, $interval, TwitterService, NyTimesService) {
     //$scope.twitterInputField = '';
     //$scope.test  = [];
-	$scope.toggleJumbotron = true;
 
+    $('#tweetContainer').hide();
+    $('#trendGraphContainer').hide();
+    $scope.progressBar = 0;
 
     $scope.tweetSearch = function(){
         $scope.test  = [];
         $scope.tweets = [];
-		$scope.toggleJumbotron = false;
 
         var inputToJson = {'input':$scope.inputField};
         TwitterService.postInfo(inputToJson);
+
+        $interval(function() {
+        	$scope.progressBar += 1;
+        }, 50, 100);
 
         $timeout(function(){
             TwitterService.getTweet().then(function(data){
@@ -32,6 +37,9 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'Twitte
 	                            conversation:'none'
 	                        }
 	                    ).then( function( el ) {
+	                    	$('.jumbotron').hide();
+	                    	$('#tweetContainer').show();
+	                    	$('#trendGraphContainer').show();
 	                    });
 	                });
 	            });
