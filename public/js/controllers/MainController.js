@@ -1,42 +1,51 @@
-app.controller('MainController', ['$scope', '$window', '$q','TwitterService', function($scope, $window, $q, TwitterService) {
-    $scope.twitterInputField = '';
-    $scope.test  = [];
+app.controller('MainController', ['$scope', '$timeout', '$window', '$q', 'TwitterService', function($scope, $timeout, $window, $q, TwitterService) {
+    //$scope.twitterInputField = '';
+    //$scope.test  = [];
+
+
+
     $scope.tweetSearch = function(){
+        $scope.test  = [];
+        $scope.tweets = [];
         //$scope.fromServer = 'clicked';
 
-        TwitterService.getTweet().then(function(data){
+        var inputToJson = {'input':$scope.twitterInputField};
+        TwitterService.postInfo(inputToJson);
 
-            var inputToJson = {'input':$scope.twitterInputField};
-            TwitterService.postInfo(inputToJson);
-
-            $scope.tweets = [];
-            data.forEach(function(i) {
-                $scope.tweets.push(i.tweet_id);
-            });
-
-            for(var i=0; i<data.length; i++)
-            {
-                $scope.test.push(JSON.stringify(data[i]));
-            }
+        $timeout(function(){
+            TwitterService.getTweet().then(function(data){
 
 
-            twttr.ready(function(twttr) {
-                $scope.tweets.forEach(function(i) {
-                    console.log(i);
-                    twttr.widgets.createTweet(
-                        i,
-                        document.getElementById(i),
-                        {
-                            conversation:'none'
-                        }
-                    ).then( function( el ) {
+                $scope.tweets = [];
+                data.forEach(function(i) {
+                    $scope.tweets.push(i.tweet_id);
+                });
 
+                for(var i=0; i<data.length; i++)
+                {
+                    $scope.test.push(JSON.stringify(data[i]));
+                }
+
+
+                twttr.ready(function(twttr) {
+                    $scope.tweets.forEach(function(i) {
+                        console.log(i);
+                        twttr.widgets.createTweet(
+                            i,
+                            document.getElementById(i),
+                            {
+                                conversation:'none'
+                            }
+                        ).then( function( el ) {
+
+                        });
                     });
                 });
+
+
             });
+        },5000);
 
-
-        });
     };
 
 
