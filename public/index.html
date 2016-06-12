@@ -22,12 +22,18 @@
 <body ng-app="trendifyApp">
 	<div ng-controller="MainController" id="controller">
         <div class="container">
-            <input ng-model="twitterInputField" type="text">
-            <button ng-click="tweetSearch()" class="btn btn-primary"><i class="fa fa-search"></i></button>
-            <br>
-            {{test}}
-            {{twitterInputField}}
-            {{fromServer}}
+        	<nav class="navbar navbar-default">
+        		<div class="container-fluid">
+		        	<div class="collapse navbar-collapse">
+			        	<form class="navbar-form navbar-left" role="search" ng-submit="tweetSearch()">
+			        		<div class="form-group">
+			        	    	<input ng-model="twitterInputField" type="text" class="form-control" placeholder="Search">
+			        		</div>
+			        		<button type="submit" class="btn btn-default">Submit</button>
+			        	</form>
+			        </div>
+			    </div>
+			</nav>
             <div id="tweetContainer" class="col-xs-6 col-md-4">
             	<div ng-repeat="tweet in tweets track by $index" id="{{tweet.id}}"></div>
             </div>
