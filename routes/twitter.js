@@ -90,7 +90,7 @@ function QueryTwitter(searchString) {
 			}
 		}
 		tweetsID = tweets;
-		console.log('from post'+ tweetsID.tweet['statuses'][0]['id_str']);
+		console.log('From post'+ tweetsID.tweet['statuses'][0]['id_str']);
 	});
 
 }
