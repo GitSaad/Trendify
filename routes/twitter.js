@@ -1,11 +1,11 @@
 /**
  * Created by Ali on 2016-06-11.
  */
-
+var async = require('async');
 var express = require('express');
-var router = express.Router();
 var Twitter = require('twitter');
-var request = require('request')
+var router = express.Router();
+var request = require('request');
 
 // Create client for authentication 
 var twitter_client = new Twitter({
@@ -21,37 +21,31 @@ var results_array = {
 };
 
 
-var tweetsID = {};
-
-
-
-function QueryHPE(searchString, tweet_id) {
-    
+// Perform sentiment analysis with tweets
+var GetSentiment = function QuerySentiment(tweet, callback) {   
     var results = {};
-
-	request.get({
-	  url: "https://api.havenondemand.com/1/api/sync/analyzesentiment/v1",
-	  qs: {
-	    'apikey': "9eb439c1-f5c5-4f46-b13f-f784a46e8ec1",
-	    'text': searchString
-	   
-	  },
-	}, function(err, response, body) {
-
-	  body = JSON.parse(body);
-      results['tweet_id'] = tweet_id;
-      results['sentiment'] = body['aggregate']['sentiment'];
-      results['score'] = body['aggregate']['score'];
-      if(results['score'] != 0) {
-      	results_array['hpe_results'].push(results);
-      }
-		//tweetsID = results_array['hpe_results'];
-     // console.log(results_array['hpe_results']);
-	})
-
+    request.get({
+	    url: "https://api.havenondemand.com/1/api/sync/analyzesentiment/v1",
+	    qs: {
+	    	'apikey': "9eb439c1-f5c5-4f46-b13f-f784a46e8ec1",
+	    	'text': tweet['text']
+	    }}, 
+	    function(err, response, body) {
+                sentiments = JSON.parse(body);      
+    		results['tweet_id'] = tweet['id_str'];
+		results['sentiment'] = sentiments['aggregate']['sentiment'];
+		results['score'] = sentiments['aggregate']['score'];
+		
+		if(results['sentiment'] != 'neutral') {
+                	results_array['hpe_results'].push(results);
+		}
+		return callback();
+	    });
+    
 }
 
-// Returns JSON of response 
+
+// Get tweets using twitter API and pass to sentiment analysis function
 function QueryTwitter(searchString) {
 	queryParams = {
 		'q': searchString + ' -filter:retweets',
@@ -59,41 +53,30 @@ function QueryTwitter(searchString) {
 		'result_type': 'popular',
 	};
    
-    
 	twitter_client.get('search/tweets', queryParams, function (error, response, body) {
-		if (!error) {
-			var tweets = {'tweet': response};
-
-			for (var i = 0; i < tweets.tweet['statuses'].length; i++) {
-				console.log(tweets.tweet['statuses'][i]['id_str']);
-		    	        tweet_id = tweets.tweet['statuses'][i]['id_str'];
-			        tweet_text = tweets.tweet['statuses'][i]['text'];
-			        QueryHPE(tweet_text, tweet_id);
-			}
-		}
-		tweetsID = results_array['hpe_results'];
-
-		console.log('From post'+ JSON.stringify(tweetsID));
+		var tweets = response['statuses'];     
+		async.each(tweets, GetSentiment, function(err){	var tweetsID = results_array['hpe_results']; });			
 	});
 
 }
 
+
+//Routes to connect with server
 router.route('/api/twitter')
     .get(function getTweets(req, res, next) {
             var test = {
                 "message":"From the server"
             };
+	    console.log('hello');
             return res.status(200).send(tweetsID);
     });
 
 router.post('/api/twitter',function(req,res,next){
-	    //Reset array
+	//Reset array
 	results_array = { 
 		hpe_results : []
 	};
-	console.log('test string here');
-    console.log(results_array['hpe_results'].length);
-
-    QueryTwitter(req.body.input);
+        QueryTwitter(req.body.input);
+  
 });
-module.exports = router;
+module.exports = router; 
