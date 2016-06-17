@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </nav>
-            <div class = 'jumbotron text-center'>
+            <!--<div class = 'jumbotron text-center'>
                 <h1>Trendify</h1>
                 <h4>Analyzing trend sentiments has never been easier!</h4>
                 <div class="progress">
@@ -44,7 +44,7 @@
                 	</div>
                 </div>
 	            <span>{{progressBar}}%</span>
-            </div>
+            </div>-->
             <div id="contentContainer" class="col-xs-6 col-md-4">
             	<div class="btn-group" role="group" aria-label="...">
 					<button ng-click="twitterContent = true" type="button" class="btn btn-default">Twitter</button>
@@ -58,7 +58,7 @@
             	</div>
             	<div ng-if="!twitterContent"></div>
             </div>
-            <div id="trendGraphContainer" class="col-xs-6 col-md-8" ng-show = '!toggleJumbotron'>
+            <div id="trendGraphContainer" class="col-xs-6 col-md-8">
             	<trend-graph id="trendGraph" val="tweets"></trend-graph>
             </div>
         </div>

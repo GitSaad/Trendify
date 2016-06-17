@@ -7,6 +7,7 @@ var Twitter = require('twitter');
 var router = express.Router();
 var request = require('request');
 
+var tweetsID
 // Create client for authentication 
 var twitter_client = new Twitter({
   consumer_key: 't13fmeGDe3NRiBUmzwU263fwi',
@@ -42,7 +43,7 @@ var GetSentiment = function QuerySentiment(tweet, callback) {
 		return callback();
 	    });
     
-}
+};
 
 
 // Get tweets using twitter API and pass to sentiment analysis function
@@ -50,12 +51,12 @@ function QueryTwitter(searchString) {
 	queryParams = {
 		'q': searchString + ' -filter:retweets',
 		'lang': 'en',	
-		'result_type': 'popular',
+		'result_type': 'popular'
 	};
    
 	twitter_client.get('search/tweets', queryParams, function (error, response, body) {
 		var tweets = response['statuses'];     
-		async.each(tweets, GetSentiment, function(err){	var tweetsID = results_array['hpe_results']; });			
+		async.each(tweets, GetSentiment, function(err){ tweetsID = results_array['hpe_results']; });
 	});
 
 }

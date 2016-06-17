@@ -3,8 +3,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
     //$scope.test  = [];
 	$scope.toggleJumbotron = true;
 
-    $('#contentContainer').hide();
-    $('#trendGraphContainer').hide();
+
     $scope.progressBar = 0;
     $scope.test1  = 'nothing';
 
@@ -54,7 +53,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 	                });
 	            });
 	        });
-        },40000);
+        },5000);
     };
 
     $scope.articleSearch = function () {
@@ -72,7 +71,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 
                 //USE data HERE
             });
-        }, 60000)
+        }, 5000)
     };
 
 	window.twttr = (function(d, s, id) {

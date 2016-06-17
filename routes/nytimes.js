@@ -6,7 +6,9 @@ var express = require('express');
 var Twitter = require('twitter');
 var router = express.Router();
 var request = require('request');
- 
+
+var articleAnalyses
+
 var results_array = { 
 	hpe_results : []
 };
@@ -30,7 +32,7 @@ var GetSentiment = function QuerySentiment(article, callback) {
 	        results['snippet'] = article['snippet'];	
 		results['sentiment'] = sentiments['aggregate']['sentiment'];
 		results['score'] = sentiments['aggregate']['score'];
-		results['imgurl'] = 'www.nytimes.com/' + article['multimedia'][0]['url'];
+		//results['imgurl'] = 'www.nytimes.com/' + article['multimedia'][0]['url'];
 		
 		if(results['sentiment'] != 'neutral') {
                 	results_array['hpe_results'].push(results);
@@ -38,7 +40,7 @@ var GetSentiment = function QuerySentiment(article, callback) {
 		return callback();
 	    });
     
-}
+};
 
 
 // Get articles using NYtimes API and pass to sentiment analysis function
@@ -56,7 +58,7 @@ function QueryNYTimes(searchString) {
 	}, function (err, response, body) {
                  var parsedbody = JSON.parse(body); 
 		 var articles = parsedbody.response['docs'];     
-		 async.each(articles, GetSentiment, function(err){ var articleAnalyses = results_array['hpe_results']; });			
+		 async.each(articles, GetSentiment, function(err){ articleAnalyses = results_array['hpe_results']; });
    	});
 
 }
