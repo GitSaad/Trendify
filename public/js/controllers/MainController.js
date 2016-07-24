@@ -2,7 +2,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
     //$scope.twitterInputField = '';
     //$scope.test  = [];
 	$scope.toggleJumbotron = true;
-
+	$scope.twitterContent = true;
 
     $scope.progressBar = 0;
     $scope.test1  = 'nothing';
@@ -14,6 +14,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 	};
 
     $scope.tweetSearch = function(){
+		$scope.waiting = 'fa fa-spinner fa-5x fa-spin';
         $scope.test  = [];
         $scope.tweets = [];
 		$scope.toggleJumbotron = false;
@@ -27,7 +28,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
         }, 50, 100);
 
         $timeout(function(){
-            TwitterService.getTweet().then(function(data){
+            TwitterService.getTweet($scope).then(function(data){
 
                 $scope.tweets = [];
                 var sum = 0;
@@ -53,7 +54,6 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 	                            conversation:'none'
 	                        }
 	                    ).then( function( el ) {
-	                    	$('.jumbotron').hide();
 	                    	$('#contentContainer').show();
 	                    	$('#trendGraphContainer').show();
 	                    });

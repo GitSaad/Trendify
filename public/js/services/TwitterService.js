@@ -5,10 +5,12 @@ app.factory('TwitterService', ['$http', function ($http) {
         postInfo:postInfo
     };
 
-    function  getTweet(){
+    function  getTweet(scope){
+
         return $http.get('/api/twitter')
             .then(function(res)
             {
+                scope.waiting=undefined;
                 return res.data
             });
     }
