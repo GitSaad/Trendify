@@ -1,4 +1,4 @@
-app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$interval', 'TwitterService', 'NyTimesService', function($scope, $timeout, $window, $q, $interval, TwitterService, NyTimesService) {
+app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$interval', 'TwitterService', function($scope, $timeout, $window, $q, $interval, TwitterService) {
     //$scope.twitterInputField = '';
     //$scope.test  = [];
 	$scope.toggleJumbotron = true;
@@ -6,6 +6,12 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 
     $scope.progressBar = 0;
     $scope.test1  = 'nothing';
+
+	$scope.scrollIntoView = function(){
+		$('html, body').animate({
+			scrollTop: $("#trendInfo").offset().top
+		}, 1000);
+	};
 
     $scope.tweetSearch = function(){
         $scope.test  = [];
@@ -39,6 +45,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
 
 	            twttr.ready(function(twttr) {
 	                $scope.tweets.forEach(function(i) {
+
 	                    twttr.widgets.createTweet(
 	                        i.id,
 	                        document.getElementById(i.id),
@@ -56,7 +63,9 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
         },5000);
     };
 
-    $scope.articleSearch = function () {
+	//commenting out nytimes related logic since there seems to be an error where connection
+	//is refused from their api
+    /*$scope.articleSearch = function () {
         var inputToJson = { 'input': $scope.inputField };
 
         NyTimesService.postInfo(inputToJson);
@@ -72,7 +81,7 @@ app.controller('MainController', ['$scope', '$timeout', '$window', '$q', '$inter
                 //USE data HERE
             });
         }, 5000)
-    };
+    };*/
 
 	window.twttr = (function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0],

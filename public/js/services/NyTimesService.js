@@ -1,6 +1,6 @@
 app.factory('NyTimesService', ['$http', function ($http) {
 
-    return{
+    /*return{
         getInfo:getInfo,
         postInfo:postInfo
     };
@@ -22,6 +22,6 @@ app.factory('NyTimesService', ['$http', function ($http) {
             //handle error
         })
         
-    }
+    }*/
 
-}])
+}]);
